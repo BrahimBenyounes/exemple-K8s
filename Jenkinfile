@@ -18,7 +18,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your project from the source control
-               checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/gpalve/first_jenkin_pipeline_example.git']]])
+               checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/BrahimBenyounes/exemple-K8s.git']]])
             }
         }
 
@@ -31,16 +31,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                // Push the Docker image to your registry
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        docker.image("${DOCKER_IMAGE}").push()
-                    }
-                }
-            }
-        }
+   
 
         stage('Deploy to Minikube') {
             steps {
